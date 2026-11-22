@@ -82,7 +82,8 @@ def validate(data):
         width, height = png_dimensions(data)
         kind = "PNG"
     else:
-        fail("bundled image is neither JPEG nor PNG (unknown magic bytes)")
+        fail("bundled image is neither JPEG nor PNG (leading bytes %s)"
+             % data[:8].hex())
     if width <= 0 or height <= 0:
         fail("image has non-positive dimensions %dx%d" % (width, height))
     if width > MAX_DIMENSION or height > MAX_DIMENSION:
